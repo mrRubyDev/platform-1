@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { SocialIcon } from "react-social-icons";
 import { Col, Container, Nav, NavItem, NavLink, Row } from "reactstrap";
 
@@ -15,7 +16,11 @@ export default function Footer() {
           </Col>
           <Col md="2">
             <Nav>
-              <NavLink href="/artist_form">Artist Submission</NavLink>
+              <NavItem>
+                <Link to="/artist_form">
+                  <NavLink>Artist Submission</NavLink>
+                </Link>
+              </NavItem>
             </Nav>
           </Col>
           <Col md="2">
@@ -53,7 +58,7 @@ export default function Footer() {
             <Nav>
               <NavItem>
                 <NavLink
-                  href="mailto://info@poseidonnft.org"
+                  href="mailto:info@poseidonnft.org"
                   target="_blank"
                   rel="noreferrer"
                 >

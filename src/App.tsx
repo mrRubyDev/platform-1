@@ -167,17 +167,13 @@ export default function App() {
     <BrowserRouter>
       <IndexNavbar />
       <Switch>
-        <Route
-          path="/"
-          exact
-          render={(props: any) => <LandingPage {...props} />}
-        />
-        <Route
-          path="/artist_form"
-          render={(props: any) => <ArtistForm {...props} />}
-          exact
-        />
-        <Redirect from="/" to="/components" />
+        <Route path="/" exact>
+          <LandingPage />
+        </Route>
+        <Route path="/artist_form" exact>
+          <ArtistForm />
+        </Route>
+        {/* <Redirect from="/" to="/components" /> */}
       </Switch>
       <ToastContainer />
     </BrowserRouter>
