@@ -6,14 +6,19 @@ export default function Footer() {
     <footer className="footer">
       <Container>
         <Row>
-          <Col md="3">
+          <Col md="2">
             <img
               alt="..."
               className="logo img-fluid rounded"
               src={require("assets/img/logo-transparent.png").default}
             />
           </Col>
-          <Col md="3">
+          <Col md="2">
+            <Nav>
+              <NavLink href="/artist_form">Artist Submission</NavLink>
+            </Nav>
+          </Col>
+          <Col md="2">
             <Nav>
               <NavItem>
                 <NavLink

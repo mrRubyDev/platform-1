@@ -1,6 +1,7 @@
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import LandingPage from "pages/LandingPage";
+import { LandingPage } from "pages/LandingPage";
+import { ArtistForm } from "pages/ArtistForm";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/reducers";
@@ -8,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { NetworkTypes } from "types";
 import Actions from "redux/actions";
+import IndexNavbar from "components/Navbars/IndexNavbar";
 
 export default function App() {
   const toastData = useSelector((state: RootState) => state.utils.toast);
@@ -84,6 +86,7 @@ export default function App() {
       await Moralis.enableWeb3();
     };
     enableWeb3();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //If user authenticates, we set up the environment
@@ -113,7 +116,7 @@ export default function App() {
         text: "Please switch to Mainnet",
         type: "warning",
       });
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chainId]);
 
   // Fetch address balance and NFTa on address change
@@ -159,8 +162,18 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <IndexNavbar />
       <Switch>
-        <Route path="/" render={(props: any) => <LandingPage {...props} />} />
+        <Route
+          path="/"
+          exact
+          render={(props: any) => <LandingPage {...props} />}
+        />
+        <Route
+          path="/artist_form"
+          render={(props: any) => <ArtistForm {...props} />}
+          exact
+        />
         <Redirect from="/" to="/components" />
       </Switch>
       <ToastContainer />

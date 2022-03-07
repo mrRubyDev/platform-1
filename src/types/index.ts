@@ -46,6 +46,15 @@ export interface IWallet {
   id: string;
 }
 
+export interface IArtist {
+  name: string;
+  email: string;
+  bio: string;
+  twitter_url: string;
+  instagram_url?: string;
+  website?: string;
+}
+
 //Redux types
 export interface IReduxAction {
   type: string;

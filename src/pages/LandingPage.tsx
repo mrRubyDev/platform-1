@@ -1,14 +1,14 @@
 import Footer from "components/Footer/Footer";
-import IndexNavbar from "components/Navbars/IndexNavbar";
 import { useEffect } from "react";
 import { SocialIcon } from "react-social-icons";
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap";
 import LoopGallery from "components/LoopGallery/LoopGallery";
+import { PageBackground } from "components/PageBackground";
 import "assets/demo/demo.css";
 import "assets/scss/blk-design-system-react.scss";
 import "assets/css/nucleo-icons.css";
 
-const Landing = () => {
+export const LandingPage = () => {
   useEffect(() => {
     document.body.classList.toggle("landing-page");
     return function cleanup() {
@@ -18,96 +18,55 @@ const Landing = () => {
 
   return (
     <>
-      <IndexNavbar />
       <div className="wrapper">
-        <div className="page-header">
-          <img
-            alt="..."
-            className="path"
-            src={require("assets/img/blob.png").default}
-          />
-          <img
-            alt="..."
-            className="path2"
-            src={require("assets/img/path2.png").default}
-          />
-          <img
-            alt="..."
-            className="shapes triangle"
-            src={require("assets/img/triunghiuri.png").default}
-          />
-          <img
-            alt="..."
-            className="shapes wave"
-            src={require("assets/img/waves.png").default}
-          />
-          <img
-            alt="..."
-            className="shapes squares"
-            src={require("assets/img/patrat.png").default}
-          />
-          <img
-            alt="..."
-            className="shapes circle"
-            src={require("assets/img/cercuri.png").default}
-          />
-          <div className="content-center">
-            <Row className="row-grid justify-content-between align-items-center text-left">
-              <Col lg="6" md="6">
-                <h1 className="text-white">
-                  Artists & Collectors DAO <br />
-                  {/* <span className="text-white">secured</span> */}
-                </h1>
-                <p className="text-white mb-3">
-                  Poseidon DAO brings NFTs to the next step, enabling their
+        <PageBackground>
+          <Row className="row-grid justify-content-between align-items-center text-left">
+            <Col lg="6" md="6">
+              <h1 className="text-white">
+                Artists & Collectors DAO <br />
+              </h1>
+              <p className="text-white mb-3">
+                Poseidon DAO brings NFTs to the next step, enabling their
                   evolution. The DAO is built on top of the knowledge of a huge
                   collective of artists and collectors, in order to create a
                   decentralized entity that can lead NFTs and crypto art to
                   another level.
-                </p>
-                <div className="btn-wrapper">
-                  <div className="button-container">
-                    <SocialIcon
-                      className="social-icon"
-                      target="_blank"
-                      url="https://twitter.com/Poseidon_SF/"
-                      bgColor="#4824fa"
-                      fgColor="#FFF"
-                    />
-                    <SocialIcon
-                      className="social-icon"
-                      target="_blank"
-                      url="https://discord.gg/gUsX8MpTqk"
-                      bgColor="#4824fa"
-                      fgColor="#FFF"
-                    />
-                    <SocialIcon
-                      className="social-icon"
-                      target="_blank"
-                      url="https://instagram.com/poseidondao"
-                      bgColor="#4824fa"
-                      fgColor="#FFF"
-                    />
-                    <SocialIcon
-                      className="social-icon"
-                      target="_blank"
-                      url="https://github.com/Poseidon-DAO"
-                      bgColor="#4824fa"
-                      fgColor="#FFF"
-                    />
-                  </div>
+              </p>
+              <div className="btn-wrapper">
+                <div className="button-container">
+                  <SocialIcon
+                    className="social-icon"
+                    target="_blank"
+                    url="https://twitter.com/Poseidon_SF/"
+                    bgColor="#4824fa"
+                    fgColor="#FFF"
+                  />
+                  <SocialIcon
+                    className="social-icon"
+                    target="_blank"
+                    url="https://discord.gg/gUsX8MpTqk"
+                    bgColor="#4824fa"
+                    fgColor="#FFF"
+                  />
+                  <SocialIcon
+                    className="social-icon"
+                    target="_blank"
+                    url="https://instagram.com/poseidondao"
+                    bgColor="#4824fa"
+                    fgColor="#FFF"
+                  />
+                  <SocialIcon
+                    className="social-icon"
+                    target="_blank"
+                    url="https://github.com/Poseidon-DAO"
+                    bgColor="#4824fa"
+                    fgColor="#FFF"
+                  />
                 </div>
-              </Col>
-              {/* <Col lg="4" md="5">
-                <img
-                  alt="..."
-                  className="img-fluid"
-                  src={require("assets/img/etherum.png").default}
-                />
-              </Col> */}
-            </Row>
-          </div>
-        </div>
+              </div>
+            </Col>
+          </Row>
+        </PageBackground>
         <Row style={{ marginBottom: "1rem" }}>
           <LoopGallery>
             {[
@@ -329,195 +288,8 @@ const Landing = () => {
             </Container>
           </section>
         </section>
-        {/* <section className="section section-lg">
-          <img
-            alt="..."
-            className="path"
-            src={require("assets/img/path4.png").default}
-          />
-          <img
-            alt="..."
-            className="path2"
-            src={require("assets/img/path5.png").default}
-          />
-          <img
-            alt="..."
-            className="path3"
-            src={require("assets/img/path2.png").default}
-          />
-          <Container>
-            <Row className="justify-content-center">
-              <Col lg="12">
-                <h1 className="text-center">Your best benefit</h1>
-                <Row className="row-grid justify-content-center">
-                  <Col lg="3">
-                    <div className="info">
-                      <div className="icon icon-primary">
-                        <i className="tim-icons icon-money-coins" />
-                      </div>
-                      <h4 className="info-title">Low Commission</h4>
-                      <hr className="line-primary" />
-                      <p>
-                        Divide details about your work into parts. Write a few
-                        lines about each one. A paragraph describing a feature
-                        will.
-                      </p>
-                    </div>
-                  </Col>
-                  <Col lg="3">
-                    <div className="info">
-                      <div className="icon icon-warning">
-                        <i className="tim-icons icon-chart-pie-36" />
-                      </div>
-                      <h4 className="info-title">High Incomes</h4>
-                      <hr className="line-warning" />
-                      <p>
-                        Divide details about your product or agency work into
-                        parts. Write a few lines about each one. A paragraph
-                        describing feature will be a feature.
-                      </p>
-                    </div>
-                  </Col>
-                  <Col lg="3">
-                    <div className="info">
-                      <div className="icon icon-success">
-                        <i className="tim-icons icon-single-02" />
-                      </div>
-                      <h4 className="info-title">Verified People</h4>
-                      <hr className="line-success" />
-                      <p>
-                        Divide details about your product or agency work into
-                        parts. Write a few lines about each one. A paragraph
-                        describing be enough.
-                      </p>
-                    </div>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Container>
-        </section> */}
-        {/* <section className="section section-lg section-safe">
-          <img
-            alt="..."
-            className="path"
-            src={require("assets/img/path5.png").default}
-          />
-          <Container>
-            <Row className="row-grid justify-content-between">
-              <Col md="5">
-                <img
-                  alt="..."
-                  className="img-fluid floating"
-                  src={require("assets/img/collection.jpeg").default}
-                />
-                <Card className="card-stats bg-danger">
-                  <CardBody>
-                    <div className="justify-content-center">
-                      <div className="numbers">
-                        <CardTitle tag="p">850+</CardTitle>
-                        <p className="card-category text-white">NFTs</p>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-                <Card className="card-stats bg-info">
-                  <CardBody>
-                    <div className="justify-content-center">
-                      <div className="numbers">
-                        <CardTitle tag="p">50+</CardTitle>
-                        <p className="card-category text-white">Artists</p>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-                <Card className="card-stats bg-default">
-                  <CardBody>
-                    <div className="justify-content-center">
-                      <div className="numbers">
-                        <CardTitle tag="p">10 425</CardTitle>
-                        <p className="card-category text-white">Business</p>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col md="6">
-                <div className="px-md-5">
-                  <hr className="line-success" />
-                  <h3>Awesome features</h3>
-                  <p>
-                    The design system comes with three pre-built pages to help
-                    you get started faster. You can change the text and images
-                    and you're good to go.
-                  </p>
-                  <ul className="list-unstyled mt-5">
-                    <li className="py-2">
-                      <div className="d-flex align-items-center">
-                        <div className="icon icon-success mb-2">
-                          <i className="tim-icons icon-vector" />
-                        </div>
-                        <div className="ml-3">
-                          <h6>Carefully crafted components</h6>
-                        </div>
-                      </div>
-                    </li>
-                    <li className="py-2">
-                      <div className="d-flex align-items-center">
-                        <div className="icon icon-success mb-2">
-                          <i className="tim-icons icon-tap-02" />
-                        </div>
-                        <div className="ml-3">
-                          <h6>Amazing page examples</h6>
-                        </div>
-                      </div>
-                    </li>
-                    <li className="py-2">
-                      <div className="d-flex align-items-center">
-                        <div className="icon icon-success mb-2">
-                          <i className="tim-icons icon-single-02" />
-                        </div>
-                        <div className="ml-3">
-                          <h6>Super friendly support team</h6>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </section> */}
-        {/* <section className="section section-lg">
-          <img
-            alt="..."
-            className="path"
-            src={require("assets/img/path4.png").default}
-          />
-          <img
-            alt="..."
-            className="path2"
-            src={require("assets/img/path2.png").default}
-          />
-          <Col md="12">
-            <Card className="card-chart card-plain">
-              <CardHeader>
-                <Row>
-                  <Col className="text-left" sm="6">
-                    <hr className="line-info" />
-                    <h5 className="card-category">Total Investments</h5>
-                    <CardTitle tag="h2">Performance</CardTitle>
-                  </Col>
-                </Row>
-              </CardHeader>
-              <CardBody></CardBody>
-            </Card>
-          </Col>
-        </section> */}
         <Footer />
       </div>
     </>
   );
 };
-
-export default Landing;

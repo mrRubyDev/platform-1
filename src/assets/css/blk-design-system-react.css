@@ -18641,34 +18641,34 @@ textarea.form-control:active {
   width: 100%;
   opacity: 0.5;
 }
-.landing-page .page-header .path {
+.path {
   max-width: 65%;
   right: 0;
   top: 30px;
 }
-.landing-page .page-header .path2 {
+.path2 {
   position: absolute;
   opacity: 0.02;
   max-width: 41%;
   right: -60px;
   top: -50px;
 }
-.landing-page .page-header .squares {
+.squares {
   top: 50%;
   right: 18%;
   max-height: 200px;
 }
-.landing-page .page-header .wave {
+.wave {
   top: 45%;
   right: 30%;
   max-height: 90px;
 }
-.landing-page .page-header .circle {
+.circle {
   top: 20%;
   right: 36%;
   max-height: 75px;
 }
-.landing-page .page-header .triangle {
+.triangle {
   top: 35%;
   left: 5%;
   max-height: 200px;
@@ -19036,7 +19036,7 @@ textarea.form-control:active {
   .profile-page .page-header {
     max-height: unset;
   }
-  .landing-page .page-header h1 {
+  h1 {
     margin-top: 100px;
   }
 }
