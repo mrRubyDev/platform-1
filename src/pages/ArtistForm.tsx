@@ -7,6 +7,7 @@ import { FormField } from "components/UI_KIT/CustomForm/FormField";
 import { useDispatch } from "react-redux";
 import Actions from "redux/actions";
 import { submitArtist } from "api/index";
+import { validators } from "utils/formValidators";
 
 export const ArtistForm = () => {
   const [name, setName] = useState("");
@@ -25,17 +26,26 @@ export const ArtistForm = () => {
 
   const isValid = () => {
     setValidation("");
-    if (!name.length) {
+    if (!validators.lengthValidator(name, 3)) {
       setValidation("Name is invalid");
       return false;
-    } else if (!email.length) {
+    } else if (!validators.emailValidator(email)) {
       setValidation("Email is invalid");
       return false;
-    } else if (!bio.length) {
+    } else if (!validators.lengthValidator(bio)) {
       setValidation("Bio is required");
       return false;
-    } else if (!twitter.length) {
+    } else if (!validators.urlValidator(twitter, "twitter")) {
       setValidation("Twitter is invalid");
+      return false;
+    } else if (
+      instagram.length &&
+      !validators.urlValidator(instagram, "instagram")
+    ) {
+      setValidation("Instagram is invalid");
+      return false;
+    } else if (website.length && !validators.urlValidator(website)) {
+      setValidation("Website is invalid, please include http://");
       return false;
     }
     return true;
@@ -48,6 +58,7 @@ export const ArtistForm = () => {
 
   const handleSubmit = async () => {
     if (isValid()) {
+      console.log(isValid());
       const artist: IArtist = {
         name,
         email,
@@ -63,11 +74,20 @@ export const ArtistForm = () => {
             message: "Artist created successfully",
             type: "success",
           });
+          clearState();
         }
       } catch (e: any) {
         newToast({ text: e.message, type: "error" });
       }
     }
+  };
+  const clearState = () => {
+    setName("");
+    setEmail("");
+    setBio("");
+    setWebsite("");
+    setTwitter("");
+    setInstagram("");
   };
 
   return (
