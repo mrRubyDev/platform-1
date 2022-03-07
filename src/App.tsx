@@ -86,12 +86,15 @@ export default function App() {
       await Moralis.enableWeb3();
     };
     enableWeb3();
+    onWeb3Enabled();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //If user authenticates, we set up the environment
   useEffect(() => {
-    if (isAuthenticated) onWeb3Enabled();
+    if (isAuthenticated) {
+      onWeb3Enabled();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
@@ -111,15 +114,15 @@ export default function App() {
 
   //Trigger toast on chain id change
   useEffect(() => {
-    if (chainId.length && chainId !== "0x1") {
+    if (isAuthenticated && chainId.length && chainId !== "0x1") {
       newToast({
         text: "Please switch to Mainnet",
         type: "warning",
       });
     } // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chainId]);
+  }, [chainId, isAuthenticated]);
 
-  // Fetch address balance and NFTa on address change
+  // Fetch address balance and NFTs on address change
   useEffect(() => {
     const getBalancesAndNfts = async () => {
       if (account) {
@@ -141,10 +144,10 @@ export default function App() {
         }
       }
     };
-    if (account && chainId && isAuthenticated) {
+    if (account && chainId.length && isAuthenticated) {
       getBalancesAndNfts();
     } // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, isAuthenticated, updateBalance, chainId]);
+  }, [account, isAuthenticated, chainId]);
 
   // Display toasts set in Redux
   useEffect(() => {
