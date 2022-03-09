@@ -1,7 +1,7 @@
 import { PageBackground } from "components/PageBackground";
 import CustomButton from "components/UI_KIT/CustomButton";
 import { useCallback, useState } from "react";
-import { Form } from "reactstrap";
+import { Container, Form } from "reactstrap";
 import { ButtonTypes, IArtist } from "types";
 import { FormField } from "components/UI_KIT/CustomForm/FormField";
 import { useDispatch } from "react-redux";
@@ -90,8 +90,9 @@ export const ArtistForm = () => {
   };
 
   return (
-    <PageBackground background={false}>
-      <h2>Artist Submission</h2>
+    <Container style={{ minHeight: '100vh', display:'flex', justifyContent:'center', alignItems:'center' }}>
+      <div style ={{marginTop: '10vh', width:'70vw'}}>
+      <h2 style = {{textAlign:'center'}}>Artist Submission</h2>
       <Form className="form" onSubmit={handleSubmit}>
         <p
           style={{ textAlign: "right", fontStyle: "italic", fontSize: ".8rem" }}
@@ -104,16 +105,18 @@ export const ArtistForm = () => {
         <FormField type="instagram" onChange={setInstagram} required={false} />
         <FormField type="website" onChange={setWebsite} required={false} />
         <FormField type="textarea" onChange={setBio} />
-
+      <div style = {{ display:'flex', justifyContent:'center', alignItems:'center'}}>
         <CustomButton
           type={ButtonTypes.secondary}
           text="Submit"
           onClick={handleSubmit}
           style={{ marginTop: "20px" }}
           disabled={isButtonDisabled}
-        />
+            />
+        </div>
       </Form>
-      <h5 style={{ color: "red" }}>{validation}</h5>
-    </PageBackground>
+        <h5 style={{ color: "red" }}>{validation}</h5>
+    </div>
+    </Container>
   );
 };
