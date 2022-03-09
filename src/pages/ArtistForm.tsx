@@ -6,7 +6,7 @@ import { ButtonTypes, IArtist } from "types";
 import { FormField } from "components/UI_KIT/CustomForm/FormField";
 import { useDispatch } from "react-redux";
 import Actions from "redux/actions";
-import { submitArtist } from "api/index";
+import { submitArtist } from "apis/index";
 import { validators } from "utils/formValidators";
 
 export const ArtistForm = () => {
@@ -58,7 +58,6 @@ export const ArtistForm = () => {
 
   const handleSubmit = async () => {
     if (isValid()) {
-      console.log(isValid());
       const artist: IArtist = {
         name,
         email,

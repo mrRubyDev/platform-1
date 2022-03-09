@@ -170,7 +170,7 @@ export default function App() {
         <Route path="/" exact>
           <LandingPage />
         </Route>
-        <Route path="/artist_form" exact>
+        <Route path="/artists" exact>
           <ArtistForm />
         </Route>
         {/* <Redirect from="/" to="/components" /> */}
