@@ -1,13 +1,14 @@
 import { PageBackground } from "components/PageBackground";
 import CustomButton from "components/UI_KIT/CustomButton";
 import { useCallback, useState } from "react";
-import { Form } from "reactstrap";
+import { Col, Container, Form } from "reactstrap";
 import { ButtonTypes, IArtist } from "types";
 import { FormField } from "components/UI_KIT/CustomForm/FormField";
 import { useDispatch } from "react-redux";
 import Actions from "redux/actions";
 import { submitArtist } from "apis/index";
 import { validators } from "utils/formValidators";
+import { FlexView } from "components/UI_KIT/Display";
 
 export const ArtistForm = () => {
   const [name, setName] = useState("");
@@ -90,11 +91,17 @@ export const ArtistForm = () => {
   };
 
   return (
-    <PageBackground background={false}>
-      <h2>Artist Submission</h2>
-      <Form className="form" onSubmit={handleSubmit}>
+    <FlexView isTop column>
+      <h2 style = {{textAlign:'center'}}>Artist Submission</h2>
+      <Form className="form" style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        flexDirection: 'column',
+      }} onSubmit={handleSubmit}>
         <p
-          style={{ textAlign: "right", fontStyle: "italic", fontSize: ".8rem" }}
+          style={{ alignSelf: "flex-end", fontStyle: "italic", fontSize: ".8rem" }}
         >
           Fields with * are required
         </p>
@@ -113,7 +120,7 @@ export const ArtistForm = () => {
           disabled={isButtonDisabled}
         />
       </Form>
-      <h5 style={{ color: "red" }}>{validation}</h5>
-    </PageBackground>
+        <h5 style={{ color: "red" }}>{validation}</h5>
+    </FlexView>
   );
 };

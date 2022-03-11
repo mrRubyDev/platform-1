@@ -84,7 +84,7 @@ export function FormField({ required = true, onChange, type }: FormFieldProps) {
     }
   };
   return (
-    <FormGroup style={{ textAlign: "left", marginBottom: "2rem" }}>
+    <FormGroup style={{ textAlign: "left", marginBottom: "2rem", width: '100%' }}>
       {FormField()}
     </FormGroup>
   );
