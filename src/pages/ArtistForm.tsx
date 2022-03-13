@@ -8,6 +8,7 @@ import Actions from "redux/actions";
 import { submitArtist } from "apis/index";
 import { validators } from "utils/formValidators";
 import { FlexView } from "components/UI_KIT/Display";
+import LoadingModal from "components/LoadingModal";
 
 export const ArtistForm = () => {
   const [name, setName] = useState("");
@@ -16,6 +17,8 @@ export const ArtistForm = () => {
   const [website, setWebsite] = useState("");
   const [twitter, setTwitter] = useState("");
   const [instagram, setInstagram] = useState("");
+
+  const [loading, setLoading] = useState(false);
 
   const [validation, setValidation] = useState("");
   const dispatch = useDispatch();
@@ -67,13 +70,21 @@ export const ArtistForm = () => {
         instagram_url: instagram,
       };
       try {
+        setLoading(true);
         const res = await submitArtist(artist);
-        if (res.status === 200) {
+        setLoading(false);
+        if (res.status === '200') {
           newToast({
-            message: "Artist created successfully",
+            message: "Thank you for submitting! We'll be in touch soon.",
             type: "success",
           });
           clearState();
+        }
+        else if (res.status === '409') {
+          newToast({
+            message: "You cannot apply twice.",
+            type: "failure",
+          });
         }
       } catch (e: any) {
         newToast({ text: e.message, type: "error" });
@@ -119,7 +130,8 @@ export const ArtistForm = () => {
           disabled={isButtonDisabled}
         />
       </Form>
-        <h5 style={{ color: "red" }}>{validation}</h5>
+      <h5 style={{ color: "red" }}>{validation}</h5>
+      {loading && <LoadingModal />}
     </FlexView>
   );
 };
