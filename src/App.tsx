@@ -1,7 +1,8 @@
 import "react-toastify/dist/ReactToastify.css";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { LandingPage } from "pages/LandingPage";
 import { ArtistForm } from "pages/ArtistForm";
+import { ProfilePage } from "pages/ProfilePage";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/reducers";
@@ -172,6 +173,9 @@ export default function App() {
         </Route>
         <Route path="/artists" exact>
           <ArtistForm />
+        </Route>
+        <Route path="/profile" exact>
+          <ProfilePage />
         </Route>
         {/* <Redirect from="/" to="/components" /> */}
       </Switch>

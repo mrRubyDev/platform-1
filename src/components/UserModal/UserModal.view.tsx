@@ -8,6 +8,7 @@ import Actions from "redux/actions";
 import { useCallback } from "react";
 import { ButtonTypes } from "types";
 import { roundBalance } from "utils";
+import { Link } from "react-router-dom";
 
 interface UserModalProps {
   isOpen: boolean;
@@ -41,13 +42,24 @@ export default function UserModal({
         <div>
           <header>Address:</header>
           <p>{user?.accounts[0]}</p>
+          <div>
+            <Link to ="/profile" style = {{ color: 'white', textDecoration: 'none' }}>
+          <Badge
+            color="success"
+            style={{ cursor: "pointer", marginRight: 5 }}
+            onClick={onClose}
+            >
+            Profile
+            </Badge>
+            </Link>
           <Badge
             color="info"
             style={{ cursor: "pointer" }}
             onClick={copyAddress}
           >
-            Copy Address
+              Copy Address
           </Badge>
+            </div>
           <header>Balance:</header>
           <p>{roundBalance(user?.balance, 6)} ETH</p>
         </div>

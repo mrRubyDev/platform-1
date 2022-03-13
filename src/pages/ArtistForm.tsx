@@ -1,7 +1,6 @@
-import { PageBackground } from "components/PageBackground";
 import CustomButton from "components/UI_KIT/CustomButton";
 import { useCallback, useState } from "react";
-import { Col, Container, Form } from "reactstrap";
+import { Form } from "reactstrap";
 import { ButtonTypes, IArtist } from "types";
 import { FormField } from "components/UI_KIT/CustomForm/FormField";
 import { useDispatch } from "react-redux";
