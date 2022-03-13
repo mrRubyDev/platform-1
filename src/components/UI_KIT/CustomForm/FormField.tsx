@@ -4,9 +4,15 @@ interface FormFieldProps {
   type: string;
   required?: boolean;
   onChange: (event: string) => void;
+  value: string;
 }
 
-export function FormField({ required = true, onChange, type }: FormFieldProps) {
+export function FormField({ required = true, onChange, type, value }: FormFieldProps) {
+  const updateValue = (value: string) => {
+    localStorage.setItem('form-'+type, value);
+    onChange(value);
+  };
+  
   const FormField = () => {
     switch (type) {
       case "name":
@@ -17,9 +23,10 @@ export function FormField({ required = true, onChange, type }: FormFieldProps) {
               type="text"
               name="name"
               id="name"
+              value={value}
               placeholder="John Doe"
               required={required}
-              onChange={(e) => onChange(e.target.value)}
+              onChange={(e) => updateValue(e.target.value)}
             />
           </>
         );
@@ -31,9 +38,10 @@ export function FormField({ required = true, onChange, type }: FormFieldProps) {
               type="email"
               name="email"
               id="email"
+              value={value}
               placeholder="john.doe@gmail.com"
               required={required}
-              onChange={(e) => onChange(e.target.value)}
+              onChange={(e) => updateValue(e.target.value)}
             />
           </>
         );
@@ -52,9 +60,10 @@ export function FormField({ required = true, onChange, type }: FormFieldProps) {
             <Input
               type="text"
               name={type}
+              value={value}
               id={type}
               required={required}
-              onChange={(e) => onChange(e.target.value)}
+              onChange={(e) => updateValue(e.target.value)}
               placeholder={
                 type === "website"
                   ? "https://www.john-doe.com"
@@ -70,11 +79,12 @@ export function FormField({ required = true, onChange, type }: FormFieldProps) {
           <>
             <Label>Bio *</Label>
             <Input
+              value={value}
               type="textarea"
               name={type}
               id={type}
               required={required}
-              onChange={(e) => onChange(e.target.value)}
+              onChange={(e) => updateValue(e.target.value)}
               placeholder="Tell us about yourself"
             />
           </>

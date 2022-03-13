@@ -1,5 +1,5 @@
 import CustomButton from "components/UI_KIT/CustomButton";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Form } from "reactstrap";
 import { ButtonTypes, IArtist } from "types";
 import { FormField } from "components/UI_KIT/CustomForm/FormField";
@@ -11,12 +11,17 @@ import { FlexView } from "components/UI_KIT/Display";
 import LoadingModal from "components/LoadingModal";
 
 export const ArtistForm = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [bio, setBio] = useState("");
-  const [website, setWebsite] = useState("");
-  const [twitter, setTwitter] = useState("");
-  const [instagram, setInstagram] = useState("");
+  const getInitialValue = (type: string) => {
+    const saved = localStorage.getItem('form-' + type);
+    return saved?.length ? saved : '';
+  }
+
+  const [name, setName] = useState(() => getInitialValue("name"));
+  const [email, setEmail] = useState(() => getInitialValue("email"));
+  const [bio, setBio] = useState(() => getInitialValue("textarea"));
+  const [website, setWebsite] = useState(() => getInitialValue("website"));
+  const [twitter, setTwitter] = useState(() => getInitialValue("twitter"));
+  const [instagram, setInstagram] = useState(() => getInitialValue("instagram"));
 
   const [loading, setLoading] = useState(false);
 
@@ -26,6 +31,7 @@ export const ArtistForm = () => {
     (payload) => dispatch(Actions.UtilsActions.AddToast(payload)),
     [dispatch]
   );
+
 
   const isValid = () => {
     setValidation("");
@@ -91,6 +97,7 @@ export const ArtistForm = () => {
       }
     }
   };
+
   const clearState = () => {
     setName("");
     setEmail("");
@@ -98,6 +105,12 @@ export const ArtistForm = () => {
     setWebsite("");
     setTwitter("");
     setInstagram("");
+    localStorage.setItem('form-name', '');
+    localStorage.setItem('form-email', '');
+    localStorage.setItem('form-textarea', '');
+    localStorage.setItem('form-website', '');
+    localStorage.setItem('form-twitter', '');
+    localStorage.setItem('form-instagram', '');
   };
 
   return (
@@ -115,12 +128,12 @@ export const ArtistForm = () => {
         >
           Fields with * are required
         </p>
-        <FormField type="name" onChange={setName} />
-        <FormField type="email" onChange={setEmail} />
-        <FormField type="twitter" onChange={setTwitter} />
-        <FormField type="instagram" onChange={setInstagram} required={false} />
-        <FormField type="website" onChange={setWebsite} required={false} />
-        <FormField type="textarea" onChange={setBio} />
+        <FormField value={name} type="name" onChange={setName} />
+        <FormField value={email} type="email" onChange={setEmail} />
+        <FormField value={twitter} type="twitter" onChange={setTwitter} />
+        <FormField value={instagram} type="instagram" onChange={setInstagram} required={false} />
+        <FormField value={website} type="website" onChange={setWebsite} required={false} />
+        <FormField value={bio} type="textarea" onChange={setBio} />
 
         <CustomButton
           type={ButtonTypes.secondary}
