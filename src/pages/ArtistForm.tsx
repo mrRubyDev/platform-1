@@ -1,5 +1,5 @@
 import CustomButton from "components/UI_KIT/CustomButton";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Form } from "reactstrap";
 import { ButtonTypes, IArtist } from "types";
 import { FormField } from "components/UI_KIT/CustomForm/FormField";
@@ -93,6 +93,7 @@ export const ArtistForm = () => {
           });
         }
       } catch (e: any) {
+        setLoading(false);
         newToast({ text: e.message, type: "error" });
       }
     }

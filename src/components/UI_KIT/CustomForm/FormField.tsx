@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 interface FormFieldProps {
@@ -12,6 +13,8 @@ export function FormField({ required = true, onChange, type, value }: FormFieldP
     localStorage.setItem('form-'+type, value);
     onChange(value);
   };
+
+  const [isFocused, setFocused] = useState(false)
   
   const FormField = () => {
     switch (type) {
@@ -23,6 +26,9 @@ export function FormField({ required = true, onChange, type, value }: FormFieldP
               type="text"
               name="name"
               id="name"
+              style={isFocused ? focusedStyle : {}}
+              onFocus={() => setFocused(true)}
+              onBlur={()=>setFocused(false)}
               value={value}
               placeholder="John Doe"
               required={required}
@@ -39,6 +45,9 @@ export function FormField({ required = true, onChange, type, value }: FormFieldP
               name="email"
               id="email"
               value={value}
+              style={isFocused ? focusedStyle : {}}
+              onFocus={() => setFocused(true)}
+              onBlur={()=>setFocused(false)}
               placeholder="john.doe@gmail.com"
               required={required}
               onChange={(e) => updateValue(e.target.value)}
@@ -63,6 +72,9 @@ export function FormField({ required = true, onChange, type, value }: FormFieldP
               value={value}
               id={type}
               required={required}
+              style={isFocused ? focusedStyle : {}}
+              onFocus={() => setFocused(true)}
+              onBlur={()=>setFocused(false)}
               onChange={(e) => updateValue(e.target.value)}
               placeholder={
                 type === "website"
@@ -84,6 +96,9 @@ export function FormField({ required = true, onChange, type, value }: FormFieldP
               name={type}
               id={type}
               required={required}
+              style={isFocused ? {borderBottom: '0.5px solid #4824fa'} : {}}
+              onFocus={() => setFocused(true)}
+              onBlur={()=>setFocused(false)}
               onChange={(e) => updateValue(e.target.value)}
               placeholder="Tell us about yourself"
             />
@@ -98,4 +113,8 @@ export function FormField({ required = true, onChange, type, value }: FormFieldP
       {FormField()}
     </FormGroup>
   );
+}
+
+const focusedStyle = {
+  border: '0.5px solid #4824fa',
 }
