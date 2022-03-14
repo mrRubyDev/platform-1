@@ -6,6 +6,7 @@ export interface IUtilsState extends ApiReducerState {
   toast: {
     text: string;
     type: ToastTypes;
+    time: number;
   };
 }
 
@@ -14,6 +15,7 @@ const initialState = {
   toast: {
     text: "",
     type: ToastTypes.success,
+    time: 3000,
   },
 };
 
@@ -28,6 +30,7 @@ const GlobalReducers = (
         toast: {
           text: payload.text,
           type: payload.type || ToastTypes.success,
+          time: payload.time || 3000,
         },
       };
     case Actions.UtilsActions.CLEAR_TOAST:

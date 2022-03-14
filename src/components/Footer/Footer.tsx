@@ -76,7 +76,7 @@ export default function Footer() {
               </NavItem>
               <NavItem>
                 <Link to="/artists">
-                  <NavLink>Artist Submission</NavLink>
+                  <NavLink>Artists</NavLink>
                 </Link>
               </NavItem>
             </Nav>

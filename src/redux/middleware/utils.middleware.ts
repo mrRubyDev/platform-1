@@ -2,8 +2,8 @@ import { put, takeEvery } from "redux-saga/effects";
 import Actions from "../actions";
 // import { IReduxAction } from "../../types";
 
-function* newToast() {
-  setTimeout(() => yield put(Actions.UtilsActions.clearToast()), 3000);
+function* newToast(payload: any) {
+  setTimeout(() => yield put(Actions.UtilsActions.clearToast()), payload.time || 3000);
 }
 
 export default function* utilsMiddleware() {

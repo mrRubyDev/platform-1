@@ -1,5 +1,5 @@
 import "react-toastify/dist/ReactToastify.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { LandingPage } from "pages/LandingPage";
 import { ArtistForm } from "pages/ArtistForm";
 import { ProfilePage } from "pages/ProfilePage";
@@ -155,7 +155,7 @@ export default function App() {
     if (toastData.text.length) {
       toast[toastData.type](toastData.text, {
         position: "bottom-right",
-        autoClose: 3000,
+        autoClose: toastData.time ? toastData.time : 3000,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
@@ -167,18 +167,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <IndexNavbar />
-      <Switch>
-        <Route path="/" exact>
-          <LandingPage />
-        </Route>
-        <Route path="/artists" exact>
-          <ArtistForm />
-        </Route>
-        <Route path="/profile" exact>
-          <ProfilePage />
-        </Route>
-        {/* <Redirect from="/" to="/components" /> */}
-      </Switch>
+      <Routes>
+        <Route path="/" element={<LandingPage />}/>
+        <Route path="/artists" element={<ArtistForm/>}/>
+        <Route path="/profile" element={<ProfilePage/>}/>
+      </Routes>
       <ToastContainer />
     </BrowserRouter>
   );

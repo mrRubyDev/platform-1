@@ -9,12 +9,14 @@ import { submitArtist } from "apis/index";
 import { validators } from "utils/formValidators";
 import { FlexView } from "components/UI_KIT/Display";
 import LoadingModal from "components/LoadingModal";
+import { useNavigate } from "react-router-dom";
 
 export const ArtistForm = () => {
   const getInitialValue = (type: string) => {
     const saved = localStorage.getItem('form-' + type);
     return saved?.length ? saved : '';
   }
+  const navigate = useNavigate();
 
   const [name, setName] = useState(() => getInitialValue("name"));
   const [email, setEmail] = useState(() => getInitialValue("email"));
@@ -77,24 +79,18 @@ export const ArtistForm = () => {
       };
       try {
         setLoading(true);
-        const res = await submitArtist(artist);
+        await submitArtist(artist);
         setLoading(false);
-        if (res.status === '200') {
-          newToast({
-            message: "Thank you for submitting! We'll be in touch soon.",
-            type: "success",
-          });
-          clearState();
-        }
-        else if (res.status === '409') {
-          newToast({
-            message: "You cannot apply twice.",
-            type: "failure",
-          });
-        }
+        newToast({
+          text: "Thank you for your application. Our team will review your profile and will reach out if it meets our requirements.",
+          type: "success",
+          time: 5000
+        });
+        clearState();
+        navigate('/');
       } catch (e: any) {
         setLoading(false);
-        newToast({ text: e.message, type: "error" });
+        newToast({ text: "Oops, something went wrong!", type: "error" });
       }
     }
   };
@@ -116,12 +112,13 @@ export const ArtistForm = () => {
 
   return (
     <FlexView isTop column>
-      <h2 style = {{textAlign:'center'}}>Artist Submission</h2>
+      <h2 style = {{ textAlign:'center' }}>Artist Application</h2>
       <Form className="form" style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
+        maxWidth: '900px',
         flexDirection: 'column',
       }} onSubmit={handleSubmit}>
         <p
