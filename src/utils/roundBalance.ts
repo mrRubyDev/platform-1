@@ -1,3 +1,3 @@
-export default function roundBalance(balance: string, decimals: number = 2) {
+export function roundBalance(balance: string, decimals: number = 2) {
   return parseFloat(Number(balance).toFixed(decimals));
 }

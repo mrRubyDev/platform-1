@@ -1,10 +1,10 @@
 import Actions from "../actions";
 import { ApiReducerState, apiReducerInitialState } from "./reducerUtils";
-import { IReduxAction, IWallet } from "types";
+import { INft, IReduxAction, IWallet } from "types";
 
 export interface IWalletState extends ApiReducerState {
   wallet: IWallet;
-  nfts: any;
+  nfts: INft[];
 }
 
 const initialState = {
@@ -28,6 +28,16 @@ const WalletReducer = (
         ...state,
         wallet: payload,
       };
+    case Actions.WalletActions.UPDATE_NFTS.SUCCESS:
+      return {
+        ...state,
+        nfts: payload,
+      }
+    case Actions.WalletActions.UPDATE_NFTS.FAILED:
+      return {
+        ...state,
+        failed: true,
+      }
     default:
       return state;
   }

@@ -29,8 +29,8 @@ export default function App() {
     (payload: string) => dispatch(Actions.AuthActions.Balance(payload)),
     [dispatch]
   );
-  const updateNfts = useCallback(
-    (payload: any) => dispatch(Actions.WalletActions.UpdateNfts(payload)),
+  const fetchNfts = useCallback(
+    (payload: any) => dispatch(Actions.WalletActions.fetchNfts(payload)),
     [dispatch]
   );
   const storeLogout = useCallback(
@@ -139,7 +139,7 @@ export default function App() {
             chain: chainId,
           });
           updateBalance(Moralis.Units.FromWei(balances.balance));
-          updateNfts(nftList.result);
+          fetchNfts(nftList.result);
         } catch (e) {
           updateBalance("0");
         }

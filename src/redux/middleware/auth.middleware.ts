@@ -13,6 +13,6 @@ import { IReduxAction } from "../../types";
 //   }
 // }
 
-// export default function* auhMiddleware() {
+// export default function* authMiddleware() {
 //   yield takeEvery(Actions.AuthActions.LOGIN.REQUEST, login);
 // }
