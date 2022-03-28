@@ -1,4 +1,3 @@
-import NFTCard from "components/NftCard/nftCard.view";
 import AvatarDisplay from "components/UI_KIT/Avatar";
 import { FlexView } from "components/UI_KIT/Display";
 import { useState } from "react";
@@ -9,6 +8,7 @@ import styled from "styled-components";
 import { INft } from "types";
 import useCopyAddress from "utils/useCopyAddress";
 import CustomModal from "components/UI_KIT/CustomModal";
+import NFTList from "components/ProfilePage/NFTList";
 
 interface ITab { 
   name: string;
@@ -23,17 +23,28 @@ const tabs: ITab[] = [
 ]
 
 export const ProfilePage = () => {
-  const nft = useSelector((state: RootState) => state.wallet.nfts[0]);
+  const nfts = useSelector((state: RootState) => state.wallet.nfts);
   const address = useSelector((state: RootState) => state.wallet.wallet.address);
   const copyAdress = useCopyAddress();
   const [nftModalOpen, setNftModalOpen] = useState(false);
 
   const [selectedTab, setSelectedTab] = useState<ITab>(tabs[0]);
+  const [selectedNft, setSelectedNft] = useState<INft>();
 
   const handleNFTModal = (nft: INft) => {
-    console.log(nft);
     setNftModalOpen(true);
+    setSelectedNft(nft);
   };
+
+  const TabContent = () => {
+    switch (selectedTab.id) {
+      case 0: 
+        return <NFTList list={nfts} handleNFTModal={handleNFTModal}/>;
+      default: 
+        return null;
+    }
+  };
+
 
   return (
     <FlexView>
@@ -68,7 +79,7 @@ export const ProfilePage = () => {
             )}
           </HeaderData>
         </Header>
-        <Content>
+        <ContentContainer>
           <Tabs>
             {tabs.map(el => (
               <Tab key={el.id} isSelected={selectedTab.name === el.name} onClick={() => setSelectedTab(el)}>
@@ -78,16 +89,13 @@ export const ProfilePage = () => {
               </Tab>
             ))}
           </Tabs>
-          <div style = {{height: '100%', width: '80%', marginTop: '1rem', marginLeft: '1rem'}}>
-            <div style={{width: '16rem', height: '24rem'}}>
-              <NFTCard nft={nft} onClick={handleNFTModal}/>
-            </div>
-          </div>
-        </Content>
+          <Content>
+            {TabContent()}
+          </Content>
+        </ContentContainer>
       </Container>
-      <CustomModal isOpen={nftModalOpen} onClose={() => setNftModalOpen(false)} body={
+      <CustomModal isOpen={nftModalOpen} onClose={() => setNftModalOpen(false)} header={selectedNft?.name} body={
         <Modal>
-          <h3>NFT Modal to be setup!</h3>
         </Modal>
       }/>
     </FlexView>
@@ -117,7 +125,7 @@ const Badges = styled.div`
   }
 `
 
-const Content = styled.div`
+const ContentContainer = styled.div`
   display: flex;
   width: 100%;
   margin-top: 2rem;
@@ -126,6 +134,25 @@ const Content = styled.div`
     flex-direction: column;
   }
 `
+
+const Content = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  width: 80%;
+  @media (max-width: 768px) {
+    margin-left: 0;
+    margin-top: 1rem;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
 const AddressInfo = styled.div`
   height: 20%;
   display: flex;
@@ -164,7 +191,6 @@ const Tab = styled.div<{isSelected: boolean}>`
 
 const Tabs = styled.div`
   min-height: 60vh;
-  margin-top: 1rem;
   width: 20%;
   border-right: solid 0.2px white;
   padding-right: 1rem;
