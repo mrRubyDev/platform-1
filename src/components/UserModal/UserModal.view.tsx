@@ -2,13 +2,12 @@ import CustomModal from "../UI_KIT/CustomModal";
 import styled from "styled-components";
 import AvatarDisplay from "../UI_KIT/Avatar";
 import { Badge } from "reactstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "redux/reducers";
-import Actions from "redux/actions";
-import { useCallback } from "react";
 import { ButtonTypes } from "types";
 import { roundBalance } from "utils";
 import { Link } from "react-router-dom";
+import useCopyAddress from "utils/useCopyAddress";
 
 interface UserModalProps {
   isOpen: boolean;
@@ -22,17 +21,7 @@ export default function UserModal({
   onLogout,
 }: UserModalProps) {
   const user = useSelector((state: RootState) => state.auth.user);
-  const dispatch = useDispatch();
-  const addToast = useCallback(
-    (payload) => dispatch(Actions.UtilsActions.AddToast(payload)),
-    [dispatch]
-  );
-
-  const copyAddress = () => {
-    navigator.clipboard.writeText(user?.accounts[0]);
-    addToast({ text: "Address copied to clipboard!" });
-  };
-
+  const copyAddress = useCopyAddress();
   const userBody = (
     <Container>
       <div style={{ height: "5rem", width: "20%" }}>

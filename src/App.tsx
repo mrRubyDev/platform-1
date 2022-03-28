@@ -11,6 +11,9 @@ import { useMoralis } from "react-moralis";
 import { NetworkTypes } from "types";
 import Actions from "redux/actions";
 import IndexNavbar from "components/Navbars/IndexNavbar";
+import "assets/demo/demo.css";
+import "assets/scss/blk-design-system-react.scss";
+import "assets/css/nucleo-icons.css";
 
 export default function App() {
   const toastData = useSelector((state: RootState) => state.utils.toast);
