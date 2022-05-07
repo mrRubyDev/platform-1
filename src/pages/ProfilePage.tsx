@@ -1,6 +1,6 @@
 import AvatarDisplay from "components/UI_KIT/Avatar";
 import { FlexView } from "components/UI_KIT/Display";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux'
 import { Badge } from "reactstrap";
 import { RootState } from "redux/reducers";
@@ -9,6 +9,7 @@ import { INft } from "types";
 import useCopyAddress from "utils/useCopyAddress";
 import CustomModal from "components/UI_KIT/CustomModal";
 import NFTList from "components/ProfilePage/NFTList";
+import { useNavigate } from "react-router-dom";
 
 interface ITab { 
   name: string;
@@ -17,19 +18,24 @@ interface ITab {
 
 const tabs: ITab[] = [
   {name: "Collectibles", id: 0 },
-  {name: "Tokens", id: 1 },
-  {name: "Governance", id: 2 },
-  {name: "Staking", id: 3 },
+  {name: "Staking", id: 1 },
+  {name: "Tokens", id: 2 },
+  {name: "Governance", id: 3 },
 ]
 
 export const ProfilePage = () => {
   const nfts = useSelector((state: RootState) => state.wallet.nfts);
   const address = useSelector((state: RootState) => state.wallet.wallet.address);
   const copyAdress = useCopyAddress();
+  const navigate = useNavigate()
   const [nftModalOpen, setNftModalOpen] = useState(false);
 
   const [selectedTab, setSelectedTab] = useState<ITab>(tabs[0]);
   const [selectedNft, setSelectedNft] = useState<INft>();
+
+  useEffect(() => {
+    if (!address) navigate("/")
+  },[address, navigate])
 
   const handleNFTModal = (nft: INft) => {
     setNftModalOpen(true);
@@ -52,9 +58,8 @@ export const ProfilePage = () => {
         <Header>
           <AvatarDisplay size={'6vw'} />
           <HeaderData>
-            <div style = {{ height: '80%' }}>
-              <h2 style= {{marginBottom: 5, fontWeight: 700}}>Your Account</h2>
-              <p>This is your account page. Styling pending</p>
+            <div style = {{ height: '50%' }}>
+              <h2 style= {{marginBottom: 1, fontWeight: 700}}>Your Account</h2>
             </div>
             {address && (
             <AddressInfo>

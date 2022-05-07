@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "redux/reducers";
 import { ButtonTypes } from "types";
 import { roundBalance } from "utils";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useCopyAddress from "utils/useCopyAddress";
 
 interface UserModalProps {
@@ -22,6 +22,8 @@ export default function UserModal({
 }: UserModalProps) {
   const user = useSelector((state: RootState) => state.auth.user);
   const copyAddress = useCopyAddress();
+  const location = useLocation();
+  const isProfile = location.pathname.includes("/profile")
   const userBody = (
     <Container>
       <div style={{ height: "5rem", width: "20%" }}>
@@ -32,15 +34,17 @@ export default function UserModal({
           <header>Address:</header>
           <p>{user?.accounts[0]}</p>
           <div>
+          {!isProfile && 
             <Link to ="/profile" style = {{ color: 'white', textDecoration: 'none' }}>
-          <Badge
-            color="success"
-            style={{ cursor: "pointer", marginRight: 5 }}
-            onClick={onClose}
-            >
-            Profile
-            </Badge>
+              <Badge
+                color="success"
+                style={{ cursor: "pointer", marginRight: 5 }}
+                onClick={onClose}
+                >
+                Profile
+              </Badge>
             </Link>
+          }
           <Badge
             color="info"
             style={{ cursor: "pointer" }}
