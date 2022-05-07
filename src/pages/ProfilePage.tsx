@@ -10,6 +10,7 @@ import useCopyAddress from "utils/useCopyAddress";
 import CustomModal from "components/UI_KIT/CustomModal";
 import NFTList from "components/ProfilePage/NFTList";
 import Staking from "components/ProfilePage/Staking";
+import Tokens from "components/ProfilePage/Tokens";
 import { useNavigate } from "react-router-dom";
 
 interface ITab { 
@@ -49,6 +50,8 @@ export const ProfilePage = () => {
         return <NFTList list={nfts} handleNFTModal={handleNFTModal}/>;
       case 1: 
         return <Staking />;
+      case 2: 
+        return <Tokens />;
       default: 
         return null;
     }
