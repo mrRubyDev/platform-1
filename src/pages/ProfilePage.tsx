@@ -12,6 +12,8 @@ import NFTList from "components/ProfilePage/NFTList";
 import Staking from "components/ProfilePage/Staking";
 import Tokens from "components/ProfilePage/Tokens";
 import { useNavigate } from "react-router-dom";
+import { useMoralis } from "react-moralis";
+import SMART_CONTRACT_FUNCTIONS, { ERC20Options } from "smartContract";
 
 interface ITab { 
   name: string;
@@ -35,6 +37,29 @@ export const ProfilePage = () => {
   const [selectedTab, setSelectedTab] = useState<ITab>(tabs[0]);
   const [selectedNft, setSelectedNft] = useState<INft>();
 
+  const [supply, setSupply] = useState("")
+  const [userBalance, setUserBalance] = useState("")
+  const { account, Moralis } = useMoralis();
+
+  // Get the user balance and total supply of tokens
+  useEffect(() => {
+    const getTotalSupply = async () => {
+        const options = ERC20Options(account!!, SMART_CONTRACT_FUNCTIONS.TOTAL_SUPPLY);
+        const supply = await Moralis.executeFunction(options);
+        setSupply(supply.toString())
+    }
+    const getBalance = async () => {
+      const options = ERC20Options(account!!, SMART_CONTRACT_FUNCTIONS.GET_BALANCE, { account });
+      const balance = await Moralis.executeFunction(options);
+      setUserBalance(balance.toString())
+    }
+
+    if (account !== null){
+      getTotalSupply();
+      getBalance();
+    }
+  }, [account, Moralis])
+
   useEffect(() => {
     if (!address) navigate("/")
   },[address, navigate])
@@ -49,9 +74,9 @@ export const ProfilePage = () => {
       case 0: 
         return <NFTList list={nfts} handleNFTModal={handleNFTModal}/>;
       case 1: 
-        return <Staking />;
+        return <Staking availableBalance={userBalance} />;
       case 2: 
-        return <Tokens />;
+        return <Tokens totalSupply={supply} balance={userBalance} account={account!!}/>;
       default: 
         return null;
     }

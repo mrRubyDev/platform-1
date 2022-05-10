@@ -1,14 +1,15 @@
 import styled from 'styled-components'
 import { Form, FormGroup, Input } from 'reactstrap'
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from 'redux/reducers';
 
-export default function Staking() {
+interface StakingProps {
+  availableBalance: string;
+}
+
+export default function Staking({ availableBalance }: StakingProps) {
   const [isStake, setIsStake] = useState(true)
   const [isFocused, setIsFocused] = useState(false)
   const [amount, setAmount] = useState("")
-  const availableBalance = useSelector((state: RootState) => state.wallet.wallet.balance)
 
   const handleChangeTab = (isStake: boolean) => {
     setAmount("");
