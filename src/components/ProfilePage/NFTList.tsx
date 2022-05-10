@@ -4,8 +4,8 @@ import { INft } from 'types';
 export default function NFTList({list, handleNFTModal}: { list: INft[], handleNFTModal: (nft: INft) => void }) {
   return (
     <div>
-      {list.map((nft) => (
-        <div style={{width: '16rem', height: '24rem'}}>
+      {list.map((nft, i) => (
+        <div key = {i} style={{width: '16rem', height: '24rem'}}>
           <NFTCard nft={nft} onClick={() => handleNFTModal(nft)}/>
         </div>
       ))}
