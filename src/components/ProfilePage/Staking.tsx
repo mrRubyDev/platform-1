@@ -43,7 +43,7 @@ export default function Staking({ availableBalance }: StakingProps) {
               isActive={availableBalance !== amount} 
               onClick={() => setAmount(availableBalance)}>MAX</MaxButton>
             </div>
-            <p style={{ alignSelf: 'flex-end' }}>Available funds: <span style={{ fontWeight: 400 }}>{Number(availableBalance).toFixed(8)}</span></p>
+            <p style={{ alignSelf: 'flex-end' }}>Available funds: <span style={{ fontWeight: 400 }}>{parseFloat(Number(availableBalance).toFixed(8))}</span></p>
             <Button
               disabled={(Number(amount) <= Number(availableBalance)) && amount.length > 0 && Number(amount) > 0}
             >

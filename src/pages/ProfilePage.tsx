@@ -14,6 +14,7 @@ import Tokens from "components/ProfilePage/Tokens";
 import { useNavigate } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import SMART_CONTRACT_FUNCTIONS, { ERC20Options } from "smartContract";
+import Burn from "components/ProfilePage/Burn";
 
 interface ITab { 
   name: string;
@@ -22,9 +23,10 @@ interface ITab {
 
 const tabs: ITab[] = [
   {name: "Collectibles", id: 0 },
-  {name: "Staking", id: 1 },
-  {name: "Tokens", id: 2 },
-  {name: "Governance", id: 3 },
+  // {name: "Staking", id: 1 },
+  // {name: "Tokens", id: 2 },
+  {name: "Burn", id: 3 },
+  {name: "Governance", id: 4 },
 ]
 
 export const ProfilePage = () => {
@@ -77,6 +79,8 @@ export const ProfilePage = () => {
         return <Staking availableBalance={userBalance} />;
       case 2: 
         return <Tokens totalSupply={supply} balance={userBalance} account={account!!}/>;
+      case 3: 
+        return <Burn availableBalance={userBalance} account={account!!}/>;
       default: 
         return null;
     }
