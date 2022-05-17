@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Form, FormGroup } from 'reactstrap'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IMAGE_ARRAY } from 'assets/img/collection';
 
 interface BurnProps {
@@ -45,9 +45,8 @@ export default function Burn({ availableBalance }: BurnProps) {
               }
             )}
           </div>
-            {availableToBurn !== 0 ? <Button
-              disabled={selectedAmount !== 0}
-            >
+            {availableToBurn !== 0 ? 
+            <Button disabled={selectedAmount !== 0} onClick={() => alert(`You selected ${selectedAmount}`)}>
               BURN
             </Button> : 
             <h4 style = {{ color: '#ff7070' }}>You don't have enough funds to Mint our NFTs</h4>

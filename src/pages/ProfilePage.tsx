@@ -30,6 +30,10 @@ const tabs: ITab[] = [
   {name: "Governance", id: 4 },
 ]
 
+
+const useFakeFunds = true;
+
+
 export const ProfilePage = () => {
   const nfts = useSelector((state: RootState) => state.wallet.nfts);
   const address = useSelector((state: RootState) => state.wallet.wallet.address);
@@ -61,7 +65,11 @@ export const ProfilePage = () => {
     const getBalance = async () => {
       const options = ERC20Options(account!!, SMART_CONTRACT_FUNCTIONS.GET_BALANCE, { account });
       const balance = await Moralis.executeFunction(options);
-      setUserBalance(balance.toString())
+      if (!useFakeFunds) {
+        setUserBalance(balance.toString())
+      }else {
+        setUserBalance('120000')
+      }
     }
 
     if (account !== null){
