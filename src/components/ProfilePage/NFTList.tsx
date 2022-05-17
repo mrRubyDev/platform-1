@@ -6,35 +6,12 @@ export default function NFTList({list, handleNFTModal}: { list: INft[], handleNF
   const emptySpaces = list.length % 3;
   return (
     <Container>
-      {/* {list.map((nft, i) => (
+      {list.map((nft, i) => (
         <div key = {i} style={{width: '16rem', height: '24rem'}}>
           <NFTCard nft={nft} onClick={() => handleNFTModal(nft)}/>
         </div>
-      ))} */}
-      
-        <NftContainer>
-          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
-        </NftContainer>
-        <NftContainer>
-          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
-        </NftContainer>
-        <NftContainer>
-          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
-        </NftContainer>
-        <NftContainer>
-          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
-        </NftContainer>
-        <NftContainer>
-          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
-        </NftContainer>
-        <NftContainer>
-          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
-        </NftContainer>
-        <NftContainer>
-          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
-        </NftContainer>
-        
-        {[...Array(emptySpaces)].map(() => <div style={{width: '16rem', height: '24rem'}}/>)}
+      ))}
+      {[...Array(emptySpaces)].map(() => <div style={{width: '16rem', height: '24rem'}}/>)}
     </Container>
   )
 };
@@ -45,6 +22,7 @@ const Container = styled.div`
   width: 100%;
   gap: 2rem;
   flex-grow: 1;
+  margin-bottom: 1rem;
   @media (max-width: 1200px) {
     justify-content: flex-start;
   }
