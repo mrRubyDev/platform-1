@@ -6,19 +6,21 @@ export default function NFTCard({nft, onClick}: {nft: INft, onClick: (nft: INft)
   const isLoading = nft?.image.content.length;
 
   return (
-    <Card onClick={() => onClick(nft)}>
-      {isLoading ? (
-        <>
-          <Image src={nft.image.content} alt={nft.name} />
-          <Content>
-            <Title>{nft.name}</Title>
-            <DescriptionText>{nft.description}</DescriptionText>
-          </Content>
-        </>
-      ) : (
-        <LoadingSpinner/>
-      )}
-    </Card>
+    <div data-tilt>
+      <Card onClick={() => onClick(nft)}>
+        {isLoading ? (
+          <>
+            <Image src={nft.image.content} alt={nft.name} />
+            <Content>
+              <Title>{nft.name}</Title>
+              <DescriptionText>{nft.description}</DescriptionText>
+            </Content>
+          </>
+        ) : (
+          <LoadingSpinner/>
+        )}
+      </Card>
+    </div>
   )
 }
 
@@ -28,7 +30,8 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: transparent;
+  border-color: white;
   border-radius: .2rem;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
   margin-bottom: 1rem;
