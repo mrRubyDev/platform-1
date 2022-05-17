@@ -1,8 +1,7 @@
 import Actions from "../actions";
-import { ApiReducerState, apiReducerInitialState } from "./reducerUtils";
 import { IReduxAction, ToastTypes } from "types";
 
-export interface IUtilsState extends ApiReducerState {
+export interface IUtilsState {
   toast: {
     text: string;
     type: ToastTypes;
@@ -11,7 +10,6 @@ export interface IUtilsState extends ApiReducerState {
 }
 
 const initialState = {
-  ...apiReducerInitialState,
   toast: {
     text: "",
     type: ToastTypes.success,
@@ -36,7 +34,11 @@ const GlobalReducers = (
     case Actions.UtilsActions.CLEAR_TOAST:
       return {
         ...state,
-        toast: initialState.toast,
+        toast: {
+          text: "",
+          type: ToastTypes.success,
+          time: 3000,
+        },
       };
     default:
       return state;

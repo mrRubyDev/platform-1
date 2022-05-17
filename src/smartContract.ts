@@ -409,10 +409,11 @@ const getTopicHash = (string: string) => keccak256(toUtf8Bytes(string));
 export const ERC20Options = (address: string, functionName: string, args?: any) => {
 	const params = {...args, _address: address}
 	return {
-    contractAddress: ERC20Address,
-    functionName: functionName,
-    abi: ERC20Abi,
-    params, 
+      chain: process.env.REACT_APP_CHAIN,
+      contractAddress: ERC20Address,
+      functionName: functionName,
+      abi: ERC20Abi,
+      params, 
   }
 };
 
@@ -422,8 +423,8 @@ export const multiSigEventsOptions = ( name: string ) => {
 	const topic = getTopicHash(`${name}(${inputs})`);
 	return {
 		chain: process.env.REACT_APP_CHAIN,
-    address: ERC20Address,
-    abi,
+      address: ERC20Address,
+      abi,
 		topic,
 		limit: '3',
   }

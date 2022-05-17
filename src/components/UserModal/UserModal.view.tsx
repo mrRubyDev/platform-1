@@ -2,12 +2,14 @@ import CustomModal from "../UI_KIT/CustomModal";
 import styled from "styled-components";
 import AvatarDisplay from "../UI_KIT/Avatar";
 import { Badge } from "reactstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/reducers";
 import { ButtonTypes } from "types";
 import { roundBalance } from "utils";
 import { Link, useLocation } from "react-router-dom";
 import useCopyAddress from "utils/useCopyAddress";
+import { useCallback } from "react";
+import Actions from "redux/actions";
 
 interface UserModalProps {
   isOpen: boolean;
@@ -22,8 +24,23 @@ export default function UserModal({
 }: UserModalProps) {
   const user = useSelector((state: RootState) => state.auth.user);
   const copyAddress = useCopyAddress();
+  const dispatch = useDispatch();
   const location = useLocation();
   const isProfile = location.pathname.includes("/profile")
+  const chainID = useSelector((state: RootState) => state.wallet.wallet.id);
+  const newToast = useCallback(
+    (payload) => dispatch(Actions.UtilsActions.AddToast(payload)),
+    [dispatch]
+  );
+
+  const wrongChainModal = () => {
+    newToast({
+      type: "warning",
+      message: "Please switch to ",
+      duration: 5000,
+    });
+  };
+
   const userBody = (
     <Container>
       <div style={{ height: "5rem", width: "20%" }}>
@@ -34,7 +51,7 @@ export default function UserModal({
           <header>Address:</header>
           <p>{user?.accounts[0]}</p>
           <div>
-          {!isProfile && 
+          {!isProfile && process.env.REACT_APP_CHAIN_ID === chainID ?
             <Link to ="/profile" style = {{ color: 'white', textDecoration: 'none' }}>
               <Badge
                 color="success"
@@ -44,6 +61,14 @@ export default function UserModal({
                 Profile
               </Badge>
             </Link>
+          : 
+            <Badge
+              color="success"
+              style={{ cursor: "pointer", marginRight: 5 }}
+              onClick={wrongChainModal}
+              >
+              Profile
+            </Badge>
           }
           <Badge
             color="info"

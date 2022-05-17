@@ -1,7 +1,7 @@
 import AvatarDisplay from "components/UI_KIT/Avatar";
 import { FlexView } from "components/UI_KIT/Display";
-import { useEffect, useState } from "react";
-import { useSelector } from 'react-redux'
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 import { Badge } from "reactstrap";
 import { RootState } from "redux/reducers";
 import styled from "styled-components";
@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import SMART_CONTRACT_FUNCTIONS, { ERC20Options } from "smartContract";
 import Burn from "components/ProfilePage/Burn";
+import Actions from "redux/actions";
 
 interface ITab { 
   name: string;
@@ -33,6 +34,7 @@ export const ProfilePage = () => {
   const nfts = useSelector((state: RootState) => state.wallet.nfts);
   const address = useSelector((state: RootState) => state.wallet.wallet.address);
   const copyAdress = useCopyAddress();
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [nftModalOpen, setNftModalOpen] = useState(false);
 
@@ -43,10 +45,16 @@ export const ProfilePage = () => {
   const [userBalance, setUserBalance] = useState("")
   const { account, Moralis } = useMoralis();
 
+  const newToast = useCallback(
+    (payload) => dispatch(Actions.UtilsActions.AddToast(payload)),
+    [dispatch]
+  );
+
   // Get the user balance and total supply of tokens
   useEffect(() => {
     const getTotalSupply = async () => {
         const options = ERC20Options(account!!, SMART_CONTRACT_FUNCTIONS.TOTAL_SUPPLY);
+        console.log(options)
         const supply = await Moralis.executeFunction(options);
         setSupply(supply.toString())
     }
@@ -57,10 +65,17 @@ export const ProfilePage = () => {
     }
 
     if (account !== null){
-      getTotalSupply();
-      getBalance();
+      try {
+        getTotalSupply();
+        getBalance();
+      } catch(e) {
+        newToast({
+          text: "Please switch to " + process.env.REACT_APP_CHAIN,
+          type: "warning",
+        });
+      }
     }
-  }, [account, Moralis])
+  }, [account, Moralis, newToast])
 
   useEffect(() => {
     if (!address) navigate("/")
