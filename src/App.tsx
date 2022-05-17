@@ -87,7 +87,15 @@ export default function App() {
   // Initialize web3 through Moralis on load
   useEffect(() => {
     const enableWeb3 = async () => {
-      await Moralis.enableWeb3();
+      try {
+        await Moralis.enableWeb3();
+      }
+      catch (e) {
+        newToast({
+          text: "Please install Metamask",
+          type: "error",
+        });
+      }
     };
     enableWeb3();
     onWeb3Enabled();
@@ -118,9 +126,9 @@ export default function App() {
 
   //Trigger toast on chain id change
   useEffect(() => {
-    if (isAuthenticated && chainId.length && chainId !== "0x1") {
+    if (isAuthenticated && chainId.length && chainId !== process.env.REACT_APP_CHAIN_ID) {
       newToast({
-        text: "Please switch to Mainnet",
+        text: "Please switch to " + process.env.REACT_APP_CHAIN,
         type: "warning",
       });
     } // eslint-disable-next-line react-hooks/exhaustive-deps
