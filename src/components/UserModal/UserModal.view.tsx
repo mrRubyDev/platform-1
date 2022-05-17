@@ -36,7 +36,7 @@ export default function UserModal({
   const wrongChainModal = () => {
     newToast({
       type: "warning",
-      message: "Please switch to ",
+      text: "Please switch to " + process.env.REACT_APP_CHAIN,
       duration: 5000,
     });
   };
