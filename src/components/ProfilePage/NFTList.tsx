@@ -1,14 +1,64 @@
 import NFTCard from 'components/NftCard/nftCard.view';
 import { INft } from 'types';
+import styled from 'styled-components';
 
 export default function NFTList({list, handleNFTModal}: { list: INft[], handleNFTModal: (nft: INft) => void }) {
+  const emptySpaces = list.length % 3;
   return (
-    <div>
-      {list.map((nft, i) => (
+    <Container>
+      {/* {list.map((nft, i) => (
         <div key = {i} style={{width: '16rem', height: '24rem'}}>
           <NFTCard nft={nft} onClick={() => handleNFTModal(nft)}/>
         </div>
-      ))}
-    </div>
+      ))} */}
+      
+        <NftContainer>
+          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
+        </NftContainer>
+        <NftContainer>
+          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
+        </NftContainer>
+        <NftContainer>
+          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
+        </NftContainer>
+        <NftContainer>
+          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
+        </NftContainer>
+        <NftContainer>
+          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
+        </NftContainer>
+        <NftContainer>
+          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
+        </NftContainer>
+        <NftContainer>
+          <NFTCard nft={list[0]} onClick={() => handleNFTModal(list[0])}/>
+        </NftContainer>
+        
+        {[...Array(emptySpaces)].map(() => <div style={{width: '16rem', height: '24rem'}}/>)}
+    </Container>
   )
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 2rem;
+  flex-grow: 1;
+  @media (max-width: 1200px) {
+    justify-content: flex-start;
+  }
+  @media (max-width: 768px) {
+    gap: 1rem;
+    justify-content: center;
+  }
+`
+const NftContainer = styled.div`
+  display: flex;
+  width: 16rem;
+  height: 24rem;
+  @media (max-width: 768px) {
+    margin-right: 1rem;
+    width: 60%;
+  }
+`
