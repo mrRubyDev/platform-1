@@ -121,7 +121,9 @@ export const ProfilePage = () => {
             </div>
             {address && (
             <AddressInfo>
-              <p style={{fontSize: '1.2rem', textOverflow:'ellipsis', whiteSpace: 'nowrap', overflow:'hidden', maxWidth: '80vw' }}>{address}</p>
+              <p style={{fontSize: '1.2rem', textOverflow:'ellipsis', whiteSpace: 'nowrap', overflow:'hidden', maxWidth: '80vw' }}>
+                {address?.slice(0, 6) + "..." + address?.slice(-4)}
+              </p>
               <Badges>
                 <Badge
                   color="info"
